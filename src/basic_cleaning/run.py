@@ -67,7 +67,7 @@ if __name__ == "__main__":
 
     parser.add_argument(
         "--output_type", 
-        type = strt,
+        type = str,
         help = "Type of the output dataset",
         required = True
     )
