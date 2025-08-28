@@ -51,16 +51,32 @@ def go(config: DictConfig):
             )
 
         if "basic_cleaning" in active_steps:
-            ##################
-            # Implement here #
-            ##################
-            pass
+            _ = mlflow.run(
+                f"{config['main']['components_repository']}/get_data",
+                "main",
+                version="main",
+                env_manager="conda",
+                parameters={
+                    "sample": config["etl"]["sample"],
+                    "csv": "clean_sample.csv",
+                    "artifact_type": "cleaned_data",
+                    "artifact_description": "Basic cleaned file"
+                },
+            )
 
         if "data_check" in active_steps:
-            ##################
-            # Implement here #
-            ##################
-            pass
+            _ = mlflow.run(
+                f"{config['main']['components_repository']}/get_data",
+                "main",
+                version="main",
+                env_manager="conda",
+                parameters={
+                    "sample": config["etl"]["sample"],
+                    "artifact_name": "clean_sample.csv",
+                    "artifact_type": "cleaned_data",
+                    "artifact_description": "Basic cleaned file"
+                },
+            )
 
         if "data_split" in active_steps:
             ##################
