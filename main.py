@@ -57,10 +57,12 @@ def go(config: DictConfig):
                 version="main",
                 env_manager="conda",
                 parameters={
-                    "sample": config["etl"]["sample"],
-                    "csv": "clean_sample.csv",
-                    "artifact_type": "cleaned_data",
-                    "artifact_description": "Basic cleaned file"
+                    "input_artifact": config["etl"]["sample"],
+                    "output_artifact": "clean_sample.csv",
+                    "output_type": "cleaned_data",
+                    "output_description": "Basic cleaned file",
+                    "min_price":0.0,
+                    "max_price":10000.0
                 },
             )
 
@@ -71,10 +73,11 @@ def go(config: DictConfig):
                 version="main",
                 env_manager="conda",
                 parameters={
-                    "sample": config["etl"]["sample"],
-                    "artifact_name": "clean_sample.csv",
-                    "artifact_type": "cleaned_data",
-                    "artifact_description": "Basic cleaned file"
+                    "csv": "clean_sample.csv",
+                    "ref": "clean_sample.csv",
+                    "kl_threshold": 0.2,
+                    "min_price":0.0,
+                    "max_price":10000.0
                 },
             )
 
