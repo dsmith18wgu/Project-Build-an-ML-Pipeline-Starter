@@ -122,7 +122,7 @@ def go(config: DictConfig):
                     "random_seed": config['modeling']['random_seed'],
                     "stratify_by":config['modeling']['stratify_by'],
                     "rf_config":rf_config,
-                    "max_tfdif_features":config['modeling']['max_tfdif_features'],
+                    "max_tfidf_features":config['modeling']['max_tfidf_features'],
                     "output_artifact":"random_forest_export.csv"
                 },
             )
