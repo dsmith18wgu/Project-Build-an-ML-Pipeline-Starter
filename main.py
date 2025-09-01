@@ -54,12 +54,10 @@ def go(config: DictConfig):
 
         if "basic_cleaning" in active_steps:
             _ = mlflow.run(
-                os.path.join(
-                    root_path,
+                os.path.join(root_path,
                     "src",
                     "basic_cleaning"),
                 "main",
-                version="main",
                 env_manager="conda",
                 parameters={
                     "input_artifact": "sample.csv:latest",
@@ -73,24 +71,34 @@ def go(config: DictConfig):
 
         if "data_check" in active_steps:
             _ = mlflow.run(
-                f"{config['main']['components_repository']}/get_data",
+                os.path.join(root_path,
+                    "src",
+                    "data_check"),
                 "main",
-                version="main",
                 env_manager="conda",
                 parameters={
-                    "sample": "clean_sample.csv:latest",
+                    "csv": "clean_sample.csv:latest",
                     "ref": "clean_sample.csv:reference",
-                    "kl_threshold": 0.2,
-                    "min_price":0.0,
-                    "max_price":10000.0
+                    "kl_threshold": config['data_check']['kl_threshold'],
+                    "min_price":config['etl']['min_price'],
+                    "max_price":config['etl']['max_price']
                 },
             )
 
         if "data_split" in active_steps:
-            ##################
-            # Implement here #
-            ##################
-            pass
+            _ = mlflow.run(
+                os.path.join(root_path,
+                    "components",
+                    "train_val_test_split"),
+                "main",
+                env_manager="conda",
+                parameters={
+                    "input": "clean_sample.csv:latest",
+                    "test_size": config['modeling']['test_size'],
+                    "random_seed": config['modeling']['random_seed'],
+                    "stratify_by":config['modeling']['stratify_by']
+                },
+            )
 
         if "train_random_forest" in active_steps:
 
