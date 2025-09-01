@@ -136,8 +136,8 @@ def go(config: DictConfig):
                 "main",
                 env_manager="conda",
                 parameters={
-                    "mlflow_model": "trainval_data.csv:latest",
-                    "test_dataset": config['modeling']['val_size'],
+                    "mlflow_model": "random_forest_export:prod",
+                    "test_dataset": "test_data.csv:latest",
                     
                 },
             )
