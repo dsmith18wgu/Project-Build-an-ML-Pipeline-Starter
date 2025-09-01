@@ -129,11 +129,18 @@ def go(config: DictConfig):
 
         if "test_regression_model" in active_steps:
 
-            ##################
-            # Implement here #
-            ##################
-
-            pass
+            _ = mlflow.run(
+                os.path.join(root_path,
+                    "components",
+                    "test_regression_model"),
+                "main",
+                env_manager="conda",
+                parameters={
+                    "mlflow_model": "trainval_data.csv:latest",
+                    "test_dataset": config['modeling']['val_size'],
+                    
+                },
+            )
 
 
 if __name__ == "__main__":

@@ -121,7 +121,7 @@ def go(args):
     run.summary['r2'] = r_squared
     # Now save the variable mae under the key "mae".
    
-    run.summary['mae'] = mean_absolute_error
+    run.summary['mae'] = mae
 
     # Upload to W&B the feture importance visualization
     run.log(
